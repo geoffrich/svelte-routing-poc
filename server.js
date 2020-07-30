@@ -18,7 +18,7 @@ server.get('*', async function (req, res) {
             <link rel='icon' type='image/png' href='/favicon.png'>
             <link rel='stylesheet' href='/global.css'>
             <link rel='stylesheet' href='/build/bundle.css'>
-            <script>window.componentProps={ url: ${req.url} }</script>
+            <script>window.componentProps={ url: "${req.url}" }</script>
             <script defer src='/build/bundle.js'></script>
         </head>
 

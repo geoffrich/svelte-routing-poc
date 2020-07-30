@@ -11,3 +11,4 @@ To investigate:
 -   transitions between pages
 -   loading indication
 -   accessibility + focus management
+-   use store to cache api
