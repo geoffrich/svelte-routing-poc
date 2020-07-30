@@ -1,6 +1,6 @@
-# Svelte Router POC
+# Svelte Routing POC
 
-This is an investigation of Svelte routing strategies using [https://github.com/EmilTholin/svelte-routing](svelte-routing).
+This is an investigation of Svelte routing strategies using [svelte-routing](https://github.com/EmilTholin/svelte-routing).
 
 To investigate:
 
