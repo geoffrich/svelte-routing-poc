@@ -3,10 +3,15 @@
     import { fade } from 'svelte/transition';
     import { onMount } from 'svelte';
     import { getFlights } from './api';
-    import { each } from 'svelte/internal';
+    import { flightSelection } from './stores';
     export let day;
 
     $: getFlightResults = getFlights(day);
+
+    async function selectFlight(index) {
+        const flightResults = await getFlightResults;
+        $flightSelection = flightResults[index];
+    }
 </script>
 
 <div in:fade>
@@ -18,10 +23,19 @@
         <Link to="/results/{+day + 1}">Next day</Link>
         <Link to="/">Home</Link>
         <ul>
-            {#each results as flight}
-                <li>{flight}</li>
+            {#each results as flight, index}
+                <li>
+                    {flight}
+                    <button on:click={() => selectFlight(index)}>
+                        Select this flight
+                    </button>
+                </li>
             {/each}
         </ul>
+        {#if $flightSelection}
+            <p>You selected: {$flightSelection}</p>
+            <Link to="/results/review">Confirm your selection</Link>
+        {/if}
     {:catch error}
         <p>Something went wrong</p>
     {/await}

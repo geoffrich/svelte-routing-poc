@@ -4,11 +4,15 @@ This is an investigation of Svelte routing strategies using [svelte-routing](htt
 
 To investigate:
 
--   make API call on page
+-   store flight selection in localstorage
 -   use auro-hyperlink with links
--   storing flight selection
--   make sure data is consistent on refreshes
 -   transitions between pages
--   loading indication
 -   accessibility + focus management
--   use store to cache api
+-   call server endpoint
+-   do I need to worry about holding onto an old version of the script?
+-   IE11
+-   check recipes-mvp for store/promise examples
+-   try server-side implementation?
+-   query params
+-   track which day the guest selected
+-   highlight selected flight
