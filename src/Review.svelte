@@ -1,7 +1,12 @@
 <script>
     import { Link } from 'svelte-routing';
-    import { flightSelection } from './stores';
+    import { flightSelection, currentPage } from './stores';
     import { fly } from 'svelte/transition';
+    import { onMount } from 'svelte';
+
+    onMount(() => {
+        currentPage.set('Review new itinerary');
+    });
 </script>
 
 <div in:fly={{ duration: 300, x: 100, opacity: 0.5 }}>

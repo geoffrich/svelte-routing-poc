@@ -3,7 +3,7 @@
     import { fade } from 'svelte/transition';
     import { onMount } from 'svelte';
     import { getFlights } from './api';
-    import { flightSelection } from './stores';
+    import { flightSelection, currentPage } from './stores';
     export let day;
 
     $: getFlightResults = getFlights(day);
@@ -12,6 +12,8 @@
         const flightResults = await getFlightResults;
         $flightSelection = flightResults[index];
     }
+
+    $: currentPage.set(`Flight results for day ${day}`);
 </script>
 
 <div in:fade>
