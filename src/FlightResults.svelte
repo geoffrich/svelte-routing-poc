@@ -1,5 +1,4 @@
 <script>
-    import { Link } from 'svelte-routing';
     import { fade } from 'svelte/transition';
     import { onMount } from 'svelte';
     import { getFlights } from './api';
@@ -12,21 +11,30 @@
         const flightResults = await getFlightResults;
         $flightSelection = flightResults[index];
     }
-
-    $: currentPage.set(`Flight results for day ${day}`);
 </script>
+
+<style>
+    li {
+        padding: 5px 2px;
+    }
+
+    li.selected {
+        border: 1px dashed black;
+    }
+
+    button {
+        margin: 0;
+    }
+</style>
 
 <div in:fade>
     <h1>Flight results for day {day}</h1>
     {#await getFlightResults}
         <p>Loading...</p>
     {:then results}
-        <Link to="/results/{+day - 1}">Previous day</Link>
-        <Link to="/results/{+day + 1}">Next day</Link>
-        <Link to="/">Home</Link>
         <ul>
             {#each results as flight, index}
-                <li>
+                <li class:selected={$flightSelection === flight}>
                     {flight}
                     <button on:click={() => selectFlight(index)}>
                         Select this flight
@@ -36,7 +44,9 @@
         </ul>
         {#if $flightSelection}
             <p>You selected: {$flightSelection}</p>
-            <Link to="/results/review">Confirm your selection</Link>
+            <button on:click={() => ($currentPage = 'REVIEW')}>
+                Confirm your selection
+            </button>
         {/if}
     {:catch error}
         <p>Something went wrong</p>

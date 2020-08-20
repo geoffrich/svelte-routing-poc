@@ -6,10 +6,12 @@ export async function getFlights(day) {
     }
     await sleep(500);
     let result;
-    if (day === '1') {
-        result = ['7am'];
+    if (day === 0) {
+        result = ['8/1 7am'];
+    } else if (day === 1) {
+        result = ['8/2 7am'];
     } else {
-        result = ['9am', '10:43am'];
+        result = ['8/3 9am', '8/3 10:43am'];
     }
 
     cache[day] = result;
