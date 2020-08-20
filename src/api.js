@@ -1,21 +1,10 @@
-const cache = {};
-
-export async function getFlights(day) {
-    if (day in cache) {
-        return cache[day];
-    }
+export async function getFlights() {
     await sleep(500);
-    let result;
-    if (day === 0) {
-        result = ['8/1 7am'];
-    } else if (day === 1) {
-        result = ['8/2 7am'];
-    } else {
-        result = ['8/3 9am', '8/3 10:43am'];
-    }
-
-    cache[day] = result;
-    return result;
+    return {
+        'August 1': ['8/1 4:30pm'],
+        'August 2': ['8/2 7am'],
+        'August 3': ['8/3 9am', '8/3 10:43am']
+    };
 }
 
 function sleep(ms) {

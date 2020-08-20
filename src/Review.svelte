@@ -12,6 +12,6 @@
         <p>No flight selected</p>
     {/if}
     <button on:click={() => ($currentPage = 'RESULTS')}>
-        Return to results
+        Pick another flight
     </button>
 </div>
