@@ -9,6 +9,9 @@
     let getFlightResults = getFlights();
     $flightSelection = null;
 
+    let pageHeading;
+    onMount(() => pageHeading.focus());
+
     async function selectFlight(index) {
         // promise already resolved so this should complete immediately
         // not sure if there's a better way
@@ -42,30 +45,40 @@
 </style>
 
 <div in:fly={{ duration: 300, x: -100, opacity: 0.5 }}>
-    {#await getFlightResults}
-        <p>Loading...</p>
-    {:then results}
-        <div class="button-container">
-            {#each Object.keys(results) as date, index}
-                <button
-                    class:selected={day == index}
-                    on:click={() => (day = index)}>
-                    {date}
-                </button>
-            {/each}
-        </div>
-        <h1>Flight results for {Object.keys(results)[day]}</h1>
-        <ul>
-            {#each Object.values(results)[day] as flight, index}
-                <li>
-                    {flight}
-                    <button on:click={() => selectFlight(index)}>
-                        Select this flight
+    <h1 tabindex="-1" bind:this={pageHeading}>Rebooking options</h1>
+    <div>
+        {#await getFlightResults}
+            <p>Loading...</p>
+        {:then results}
+            <div class="button-container">
+                {#each Object.keys(results) as date, index}
+                    <button
+                        class:selected={day == index}
+                        on:click={() => (day = index)}>
+                        {date}
                     </button>
-                </li>
-            {/each}
-        </ul>
-    {:catch error}
-        <p>Something went wrong</p>
-    {/await}
+                {/each}
+            </div>
+            <h1>Flight results for {Object.keys(results)[day]}</h1>
+            <ul>
+                {#each Object.values(results)[day] as flight, index}
+                    <li>
+                        {flight}
+                        <button on:click={() => selectFlight(index)}>
+                            Select this flight
+                        </button>
+                    </li>
+                {/each}
+            </ul>
+        {:catch error}
+            <p>Something went wrong</p>
+        {/await}
+    </div>
+    <div class="sr-only" role="status">
+        {#await getFlightResults}
+            Loading flight results.
+        {:then results}
+            Loaded flight results.
+        {/await}
+    </div>
 </div>
